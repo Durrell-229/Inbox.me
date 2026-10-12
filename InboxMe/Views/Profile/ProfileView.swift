@@ -1,7 +1,13 @@
 import SwiftUI
 
 struct ProfileView: View {
-    let user = User.mock
+    @Environment(AppState.self) private var appState
+    @State private var showEditProfile = false
+    @State private var showSettings = false
+    
+    var user: User {
+        appState.currentUser
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -15,7 +21,7 @@ struct ProfileView: View {
                     Spacer()
                     
                     Button {
-                        // Settings
+                        showSettings = true
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .font(.system(size: 20, weight: .medium))
@@ -27,7 +33,6 @@ struct ProfileView: View {
                 
                 // Profile info
                 VStack(spacing: 16) {
-                    // Avatar
                     ZStack {
                         Circle()
                             .stroke(
@@ -68,14 +73,17 @@ struct ProfileView: View {
                     }
                     .padding(.top, 8)
                     
-                    // Edit button
-                    GlassButton(title: "Modifier le profil", icon: "pencil", isPrimary: false) {
-                        // Edit
+                    // Buttons
+                    HStack(spacing: 12) {
+                        GlassButton(title: "Modifier le profil", icon: "pencil") {
+                            showEditProfile = true
+                        }
                     }
+                    .padding(.horizontal, 20)
                     .padding(.top, 8)
                 }
                 
-                // Grid placeholder
+                // Grid
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 2),
                     GridItem(.flexible(), spacing: 2),
@@ -103,6 +111,15 @@ struct ProfileView: View {
                 .padding(.horizontal, 2)
                 .padding(.bottom, 120)
             }
+        }
+        .sheet(isPresented: $showEditProfile) {
+            EditProfileView()
+        }
+        .confirmationDialog("Paramètres", isPresented: $showSettings) {
+            Button("Se déconnecter", role: .destructive) {
+                appState.logout()
+            }
+            Button("Annuler", role: .cancel) {}
         }
     }
     
@@ -133,5 +150,6 @@ struct StatItem: View {
 
 #Preview {
     ProfileView()
+        .environment(AppState())
         .preferredColorScheme(.dark)
 }

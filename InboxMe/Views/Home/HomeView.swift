@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var posts = Post.mocks
+    @Environment(AppState.self) private var appState
+    @State private var showMessages = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -21,7 +22,7 @@ struct HomeView: View {
                     Spacer()
                     
                     Button {
-                        // Messages
+                        showMessages = true
                     } label: {
                         Image(systemName: "paperplane")
                             .font(.system(size: 20, weight: .medium))
@@ -35,11 +36,10 @@ struct HomeView: View {
                 // Stories
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        // Your story
                         StoryCircle(username: "Toi", isAdd: true)
                         
-                        ForEach(["luna", "kai", "maya", "noah", "zoe"], id: \.self) { name in
-                            StoryCircle(username: name)
+                        ForEach(User.mocks.dropFirst()) { user in
+                            StoryCircle(username: user.username)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -48,19 +48,23 @@ struct HomeView: View {
                 
                 // Posts
                 LazyVStack(spacing: 24) {
-                    ForEach($posts) { $post in
-                        PostCardView(post: $post)
+                    ForEach(appState.posts) { post in
+                        PostCardView(post: post)
                             .padding(.horizontal, 16)
                     }
                 }
                 .padding(.top, 16)
-                .padding(.bottom, 120) // space for tab bar
+                .padding(.bottom, 120)
             }
+        }
+        .sheet(isPresented: $showMessages) {
+            MessagesView()
         }
     }
 }
 
 #Preview {
     HomeView()
+        .environment(AppState())
         .preferredColorScheme(.dark)
 }

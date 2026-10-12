@@ -1,53 +1,52 @@
 # Inbox.me 📬
 
-**Ultra modern Instagram-like social network** built with **SwiftUI** + full **Glassmorphism / Liquid Glass** design.
+**Ultra modern Instagram-like social network** built with **SwiftUI** + full **Glassmorphism** design.
 
-> Design hyper premium : blur, materials, glass cards, floating tab bar, couleurs vibrantes.
+### Fonctionnalités complètes (v2)
 
-### Features (v1)
-- 🌐 Home Feed avec Stories + Posts glassmorphic
-- 👤 Profile
-- 🔄 Custom floating glass Tab Bar
-- 🎨 Design System complet (couleurs, GlassCard, GlassButton)
-- Prêt pour Firebase / Supabase
+#### Déjà disponibles
+- 🌐 **Home Feed** avec Stories + Posts glassmorphic
+- ❤️ Likes interactifs + animation
+- 👤 **Profile** complet + stats
+- 🔄 Tab Bar flottante glass
+- 🔐 **Authentification** (Login / Sign Up) glass
+- ➕ **Création de post** (caption + image placeholder)
+- 🔍 **Explore / Search**
+- 📩 **Messages** (liste de conversations)
+- 🔔 **Notifications**
+- ✏️ **Édition de profil**
+- Suivre / Ne plus suivre (mock)
 
-### Comment lancer le projet
+### Comment lancer
 
-1. Ouvre **Xcode** → **File > New > Project**
-2. Choisis **App** (iOS)
-3. Product Name : `InboxMe`
-4. Interface : **SwiftUI**
-5. Language : **Swift**
-6. Une fois le projet créé, **supprime** les fichiers par défaut
-7. Glisse tous les fichiers du dossier `InboxMe/` dans ton projet Xcode
-8. Build & Run (iPhone 16 / iOS 18+)
+1. Télécharge le repo
+2. Crée un nouveau projet Xcode → **App** → SwiftUI
+3. Nomme-le `InboxMe`
+4. Supprime les fichiers par défaut
+5. Glisse **tout le contenu** du dossier `InboxMe/` dans ton projet
+6. Build & Run (iOS 17+)
 
-### Structure
+### Structure actuelle
 
 ```
 InboxMe/
 ├── InboxMeApp.swift
 ├── ContentView.swift
 ├── DesignSystem.swift
+├── AppState.swift
 ├── Models/
-│   ├── User.swift
-│   └── Post.swift
+├── Components/
 ├── Views/
+│   ├── Auth/
 │   ├── Home/
-│   │   ├── HomeView.swift
-│   │   ├── StoryCircle.swift
-│   │   └── PostCardView.swift
+│   ├── Explore/
+│   ├── Create/
+│   ├── Messages/
+│   ├── Notifications/
 │   └── Profile/
-│       └── ProfileView.swift
-└── Components/
-    └── GlassTabBar.swift
 ```
 
-### Prochaines étapes
-- Authentification Firebase / Supabase
-- Upload d'images
-- Likes, Comments, Stories réels
-- Explore / Search
-- Messages
+### Prochaine étape recommandée
+Brancher **Firebase** (Auth + Firestore + Storage) ou **Supabase**.
 
-Fait avec ❤️ par Grok pour Durrell-229
+Fait avec ❤️ par Grok

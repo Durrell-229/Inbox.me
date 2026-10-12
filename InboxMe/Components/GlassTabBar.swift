@@ -7,7 +7,7 @@ struct GlassTabBar: View {
         ("house", "house.fill"),
         ("magnifyingglass", "magnifyingglass"),
         ("plus.app", "plus.app.fill"),
-        ("play.rectangle", "play.rectangle.fill"),
+        ("heart", "heart.fill"),
         ("person", "person.fill")
     ]
     

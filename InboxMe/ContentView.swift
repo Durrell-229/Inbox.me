@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = 0
+    @Environment(AppState.self) private var appState
     
     var body: some View {
+        @Bindable var appState = appState
+        
         ZStack(alignment: .bottom) {
-            // Background gradient
+            // Background
             LinearGradient(
                 colors: [
                     Color(red: 0.08, green: 0.05, blue: 0.15),
@@ -17,21 +19,15 @@ struct ContentView: View {
             .ignoresSafeArea()
             
             Group {
-                switch selectedTab {
+                switch appState.selectedTab {
                 case 0:
                     HomeView()
                 case 1:
-                    Text("Search / Explore")
-                        .font(.title2)
-                        .foregroundStyle(.white.opacity(0.7))
+                    ExploreView()
                 case 2:
-                    Text("Create Post")
-                        .font(.title2)
-                        .foregroundStyle(.white.opacity(0.7))
+                    CreatePostView()
                 case 3:
-                    Text("Activity / Reels")
-                        .font(.title2)
-                        .foregroundStyle(.white.opacity(0.7))
+                    NotificationsView()
                 case 4:
                     ProfileView()
                 default:
@@ -40,8 +36,8 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            // Custom Glass Tab Bar
-            GlassTabBar(selectedTab: $selectedTab)
+            // Glass Tab Bar
+            GlassTabBar(selectedTab: $appState.selectedTab)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
         }
@@ -50,4 +46,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(AppState())
 }

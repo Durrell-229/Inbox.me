@@ -7,7 +7,6 @@ struct StoryCircle: View {
     var body: some View {
         VStack(spacing: 6) {
             ZStack {
-                // Gradient ring
                 Circle()
                     .stroke(
                         LinearGradient(
@@ -19,7 +18,6 @@ struct StoryCircle: View {
                     )
                     .frame(width: 74, height: 74)
                 
-                // Avatar
                 Circle()
                     .fill(.ultraThinMaterial)
                     .frame(width: 64, height: 64)

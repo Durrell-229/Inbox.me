@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct PostCardView: View {
-    @Binding var post: Post
+    @Environment(AppState.self) private var appState
+    let post: Post
     
     var body: some View {
         GlassCard(cornerRadius: 28) {
             VStack(alignment: .leading, spacing: 0) {
                 // Header
                 HStack(spacing: 12) {
-                    // Avatar
                     Circle()
                         .fill(
                             LinearGradient(
@@ -36,9 +36,8 @@ struct PostCardView: View {
                     
                     Spacer()
                     
-                    Button {
-                        // More
-                    } label: {
+                    Button {}
+                    label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(.white.opacity(0.7))
                     }
@@ -72,8 +71,7 @@ struct PostCardView: View {
                 HStack(spacing: 18) {
                     Button {
                         withAnimation(.spring(response: 0.3)) {
-                            post.isLiked.toggle()
-                            // likes count would update in real app
+                            appState.toggleLike(postId: post.id)
                         }
                     } label: {
                         Image(systemName: post.isLiked ? "heart.fill" : "heart")
@@ -82,17 +80,15 @@ struct PostCardView: View {
                             .symbolEffect(.bounce, value: post.isLiked)
                     }
                     
-                    Button {
-                        // Comment
-                    } label: {
+                    Button {}
+                    label: {
                         Image(systemName: "bubble.right")
                             .font(.system(size: 21))
                             .foregroundStyle(.white)
                     }
                     
-                    Button {
-                        // Share
-                    } label: {
+                    Button {}
+                    label: {
                         Image(systemName: "paperplane")
                             .font(.system(size: 20))
                             .foregroundStyle(.white)
@@ -100,9 +96,8 @@ struct PostCardView: View {
                     
                     Spacer()
                     
-                    Button {
-                        // Bookmark
-                    } label: {
+                    Button {}
+                    label: {
                         Image(systemName: "bookmark")
                             .font(.system(size: 20))
                             .foregroundStyle(.white)
@@ -117,12 +112,14 @@ struct PostCardView: View {
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.white)
                     
-                    Text(post.user.username)
+                    (Text(post.user.username)
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.white)
-                    + Text("  \(post.caption)")
+                     +
+                     Text("  \(post.caption)")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.9))
+                    )
                     
                     if post.comments > 0 {
                         Text("Voir les \(post.comments) commentaires")
